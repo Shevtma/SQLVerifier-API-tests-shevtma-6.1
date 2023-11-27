@@ -1,7 +1,7 @@
 # SQLVerifier-API-tests-shevtma-6.1
 API tests for SQLVerifier application (Postman)
 
-Тестируемое приложение - SQLVerifier application разворачивается локально из проекта [verifier](https://github.com/IT-switcher/verifier)
+Тестируемое приложение - SQLVerifier application - разворачивается локально из проекта [verifier](https://github.com/IT-switcher/verifier)
 
 ## Инструкция по загрузке из удаленного репозитория
 

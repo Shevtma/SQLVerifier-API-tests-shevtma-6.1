@@ -1,20 +1,77 @@
 {
 	"info": {
-		"_postman_id": "16768dff-028d-4856-b0af-1ed51699b759",
+		"_postman_id": "52bc93be-d5a6-4697-9f04-6421978d53c8",
 		"name": "SQLVerifier-API-tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "24525134-16768dff-028d-4856-b0af-1ed51699b759"
+		"_uid": "24525134-52bc93be-d5a6-4697-9f04-6421978d53c8"
 	},
 	"item": [
+		{
+			"name": "login as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07da0993-665a-4fd8-bba5-1c08e7033c12",
+						"exec": [
+							"let jsonBody = JSON.parse(responseBody)",
+							"pm.environment.set(\"tokenId\", jsonBody.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Status code name is \\\"OK\\\" \", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Response body structure has field \\\"id_token\\\" of type \\\"string\\\"\", function () {",
+							"    pm.expect(pm.response.json().id_token).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "f278cd53-7e6c-4fb0-8171-32e44279d966",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"{{userAdminName}}\",\n  \"password\": \"{{userAdminPassword}}\",\n  \"rememberMe\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/authenticate",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Create a new task - happy path",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
+						"id": "13a6a63e-1399-4d2e-ac4d-5815dd92363f",
 						"exec": [
 							"let jsonBody = JSON.parse(responseBody)",
-							"pm.environment.set(\"taskId\", jsonBody.id);",
+							"pm.collectionVariables.set(\"taskId\", jsonBody.id);",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -44,12 +101,11 @@
 							"    pm.expect(jsonBody.title).to.be.a(\"string\");",
 							"});"
 						],
-						"type": "text/javascript",
-						"id": "b23b1833-1f24-4522-8f8b-8a641a17cb39"
+						"type": "text/javascript"
 					}
 				}
 			],
-			"id": "3d0a3013-a455-48c3-98b9-bca42812e562",
+			"id": "58723ace-30fa-46b4-a45d-77beb4a59a5f",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"content-type": true
@@ -101,11 +157,11 @@
 							"});"
 						],
 						"type": "text/javascript",
-						"id": "d51e4b29-617c-4f6c-8cec-c712c807fc57"
+						"id": "63b32c2b-f01f-487c-ba7b-6c039fe43780"
 					}
 				}
 			],
-			"id": "649b53f8-b9d6-4498-981f-e588f7ecb684",
+			"id": "f677104b-363d-4dbd-a8f4-8d5722e8718e",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"content-type": true
@@ -152,22 +208,108 @@
 		{
 			"listen": "prerequest",
 			"script": {
+				"id": "a28e5ea8-a1f0-4814-84eb-532fb68f53df",
 				"type": "text/javascript",
 				"exec": [
 					""
-				],
-				"id": "2716cf7f-2c7e-4cd2-b160-2857eccc6f77"
+				]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
+				"id": "a8a09ffe-3a04-4c36-9436-e1c7e968b43c",
 				"type": "text/javascript",
 				"exec": [
 					""
-				],
-				"id": "c1fb70ad-a34a-49e7-86ee-0f4d4f4ba4d9"
+				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "5d445169-4bcc-43ff-b327-4770ed8a04a6",
+			"key": "happy_text",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "aab59665-3038-4983-9f2b-63c0d0e8779b",
+			"key": "happy_answer",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "b0c692c2-bf6d-485a-8435-dee26d4c855b",
+			"key": "happy_title",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "4762a5c7-fee8-4cfa-bbb1-ca8f2f461def",
+			"key": "sad_text",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "17383bf5-5266-48c2-b5f2-703d3612a213",
+			"key": "sad_answer",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "19cf3549-6200-48c3-82d5-ff8575f2f968",
+			"key": "sad_title",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "599cd2ef-efea-4b45-8a9d-4f2f53798cdf",
+			"key": "taskId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"id": "4870e978-9186-47ff-9c37-1946b559b859",
+			"key": "userAdminName",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"id": "3863af4d-6875-49d1-9e66-ffddfa962eb4",
+			"key": "userAdminPassword",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"id": "2d64458f-82d6-4a70-866d-759f1e1f040c",
+			"key": "userTeacherName",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"id": "fe228f9e-7f03-4f68-86f8-9cf00657064d",
+			"key": "userTeacherPassword",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"id": "3144d8d4-59d2-4c5e-819c-b4c061965371",
+			"key": "userStudentName",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"id": "5a40c508-2afe-43b8-b625-857e47996cac",
+			"key": "userStudentPassword",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"id": "df75c93f-e37f-44e4-a70b-c0eda5b76f5b",
+			"key": "tokenId",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
